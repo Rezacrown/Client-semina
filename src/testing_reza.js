@@ -13,14 +13,12 @@ const Reza = ({name, umur}) => {
 export default Reza;
 
 
-// Reza.defaultProps = {
-//     nama: 'ejaaa'
-// }
+Reza.defaultProps = {
+    name: 'ejaaa'
+}
 
 
 Reza.propTypes = {
     name: propTypes.string.isRequired,
     data: propTypes.number.isRequired
 }
-
-

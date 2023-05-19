@@ -1,25 +1,22 @@
-// import {useState} from 'react';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-
-import {BrowserRouter, } from 'react-router-dom'
-import Reza from './reza';
-import Table from './components/Table';
-
+import PageSignIn from "./pages/signin/index";
+import DashBoard from "./pages/dashboard/index";
+import PageCategories from "./pages/categories";
+import PageCategoriesCreate from "./pages/categories/create";
+import PageCategoriesEdit from "./pages/categories/edit";
 
 function App() {
-
-
-const data = [{
-  _id: 1,
-  age: 21,
-  name: 'jonjon' 
-}]
-
-
   return (
     <BrowserRouter>
-    <Reza name='reza' umur='rekan' />
-     <Table users={data} children={'halo'}/>
+      <Routes>
+        <Route path="/" element={<DashBoard />} />
+        <Route path="signin" element={<PageSignIn />} />
+        <Route path="categories" element={<PageCategories />} />
+        <Route path="create" element={<PageCategoriesCreate />} />
+        <Route path="edit/:id" element={<PageCategoriesEdit />} />
+      </Routes>
     </BrowserRouter>
   );
 }
