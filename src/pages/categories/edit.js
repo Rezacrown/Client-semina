@@ -4,6 +4,7 @@ import SBreadCrumb from "../../components/Breadcrumb";
 import SAlert from "../../components/Alert";
 import Form from "./form";
 import { useNavigate, useParams } from "react-router-dom";
+import SNavbar from "../../components/Navbar";
 
 function CategoryEdit() {
   const navigate = useNavigate();
@@ -26,8 +27,7 @@ function CategoryEdit() {
 
   const fetchOneCategories = async () => {
     // const res = await getData(`/cms/categories/${categoryId}`);
-
-    setForm({ ...form, name: res.data.data.name });
+    // setForm({ ...form, name: res.data.data.name });
   };
 
   useEffect(() => {
@@ -37,37 +37,40 @@ function CategoryEdit() {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const res = await putData(`/cms/categories/${categoryId}`, form);
-    if (res?.data?.data) {
+    try {
+      // const res = await putData(`/cms/categories/${categoryId}`, form);
       navigate("/categories");
       setIsLoading(false);
-    } else {
+    } catch (error) {
       setIsLoading(false);
       setAlert({
         ...alert,
         status: true,
         type: "danger",
-        message: res.response.data.msg,
+        message: error.response.data.msg,
       });
     }
   };
 
   return (
-    <Container className="mt-3">
-      <SBreadCrumb
-        textSecound={"Categories"}
-        urlSecound={"/categories"}
-        textThird="Edit"
-      />
-      {alert.status && <SAlert type={alert.type} message={alert.message} />}
-      <Form
-        edit
-        form={form}
-        isLoading={isLoading}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-      />
-    </Container>
+    <>
+      <SNavbar />
+      <Container className="mt-3">
+        <SBreadCrumb
+          textSecound={"Categories"}
+          urlSecound={"/categories"}
+          textThird="Edit"
+        />
+        {alert.status && <SAlert type={alert.type} message={alert.message} />}
+        <Form
+          edit
+          form={form}
+          isLoading={isLoading}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
+      </Container>
+    </>
   );
 }
 

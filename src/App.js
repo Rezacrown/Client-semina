@@ -13,9 +13,9 @@ function App() {
       <Routes>
         <Route path="/" element={<DashBoard />} />
         <Route path="signin" element={<PageSignIn />} />
-        <Route path="categories" element={<PageCategories />} />
-        <Route path="create" element={<PageCategoriesCreate />} />
-        <Route path="edit/:id" element={<PageCategoriesEdit />} />
+        <Route path="/categories" element={<PageCategories />} />
+        <Route path="/categories/create" element={<PageCategoriesCreate />} />
+        <Route path="/categories/edit/:id" element={<PageCategoriesEdit />} />
       </Routes>
     </BrowserRouter>
   );
