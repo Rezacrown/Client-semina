@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Container, Card } from "react-bootstrap";
 
-import axios from "axios";
+// import axios from "axios";
 import SAlert from "../../components/Alert";
 import { useNavigate, Navigate } from "react-router-dom";
-import DashBoard from "./../dashboard/index";
-import { config } from "../../config";
+// import DashBoard from "./../dashboard/index";
+// import { config } from "../../config";
 import SForm from "./form";
+import { postData } from "../../utils/fetch";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../redux/auth/action";
 
 //
 const PageSignIn = () => {
@@ -26,10 +29,10 @@ const PageSignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // pre
-  const token = localStorage.getItem("token");
-  if (token) return <Navigate to={"/"} replace={true} />;
+
 
   // func
   const handleChange = (e) => {
@@ -39,22 +42,21 @@ const PageSignIn = () => {
   };
 
   const handleSubmit = async (e) => {
-    try {
-      setIsLoading(true);
-      const res = await axios.post(`${config.api_host_dev}/cms/signin`, form);
+    setIsLoading(true);
+    const res = await postData(`/cms/signin`, form);
+    if(res?.data?.data) {
 
-      localStorage.setItem("token", res.data.data.token);
+      
       setIsLoading(false);
       navigate("/");
-    } catch (error) {
-      // console.log(error.response.data.msg);
+      dispatch(userLogin(res?.data?.data?.token, res?.data?.data?.role));
+    } else {
       setIsLoading(false);
       setAlert({
-        ...alert,
         status: true,
-        type: "danger",
-        message: error.response.data.msg ?? "internal server error",
-      });
+        type: 'danger',
+        message: res.response.data.msg || 'Internal Server Error'
+      })
     }
   };
 
@@ -65,7 +67,7 @@ const PageSignIn = () => {
           SignIn Page
         </Card.Title>
         <Card.Body>
-          {alert.status && (
+          {alert.status === true && (
             <SAlert type={alert.type} message={alert?.message} />
           )}
           {/* <SAlert type={"danger"} message="alert" /> */}

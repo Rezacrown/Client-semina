@@ -9,6 +9,7 @@ export function TextInput({ name, value, type, onChange, placeholder }) {
       value={value} // state
       placeholder={placeholder}
       onChange={onChange}
+      autoComplete="on"
     />
   );
 }

@@ -12,7 +12,7 @@ const SForm = ({form, isLoading, handleSubmit, handleChange}) => {
           label="Email Address"
           name="email"
           onChange={handleChange}
-          value={form?.email}
+          value={form.email}
           placeholder="email"
           type="email"
         />
@@ -22,8 +22,9 @@ const SForm = ({form, isLoading, handleSubmit, handleChange}) => {
           name="password"
           placeholder="password"
           type="password"
-          value={form?.password}
+          value={form.password}
           onChange={handleChange}
+          // autocomplete={'on'}
         />
         <SButton
           loading={isLoading}
