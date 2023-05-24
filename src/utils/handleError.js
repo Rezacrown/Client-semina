@@ -3,7 +3,7 @@ import { config } from "../config";
 
 const handleError = (error) => {
   const originalRequest = error.config
-  console.log(originalRequest)
+  console.log(originalRequest._retry)
   if (error.response.data.msg === "jwt expired") {
     originalRequest._retry = true;
     const session = localStorage.getItem("auth")

@@ -32,7 +32,7 @@ const SForm = ({form, isLoading, handleSubmit, handleChange}) => {
           variant="primary"
           action={handleSubmit}
         >
-          SignIN
+          Sign In
         </SButton>
       </Form>
     );

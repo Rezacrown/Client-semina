@@ -33,7 +33,6 @@ const PageSignIn = () => {
 
   // pre
 
-
   // func
   const handleChange = (e) => {
     setAlert({ ...alert, status: false });
@@ -44,9 +43,7 @@ const PageSignIn = () => {
   const handleSubmit = async (e) => {
     setIsLoading(true);
     const res = await postData(`/cms/signin`, form);
-    if(res?.data?.data) {
-
-      
+    if (res?.data?.data) {
       setIsLoading(false);
       navigate("/");
       dispatch(userLogin(res?.data?.data?.token, res?.data?.data?.role));
@@ -54,9 +51,9 @@ const PageSignIn = () => {
       setIsLoading(false);
       setAlert({
         status: true,
-        type: 'danger',
-        message: res.response.data.msg || 'Internal Server Error'
-      })
+        type: "danger",
+        message: res.response.data.msg || "Internal Server Error",
+      });
     }
   };
 
@@ -70,7 +67,6 @@ const PageSignIn = () => {
           {alert.status === true && (
             <SAlert type={alert.type} message={alert?.message} />
           )}
-          {/* <SAlert type={"danger"} message="alert" /> */}
 
           <SForm
             form={form}

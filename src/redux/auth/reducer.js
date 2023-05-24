@@ -1,7 +1,7 @@
 import axios from "axios";
 import { config } from "../../config";
 import { USER_LOGIN, USER_LOGOUT } from "./constants";
-import { createSlice, createAsyncThunk, createReducer } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 let initialState = localStorage.getItem("auth")
   ? JSON.parse(localStorage.getItem("auth"))
@@ -30,20 +30,18 @@ let initialState = localStorage.getItem("auth")
 //   }
 // }
 
-const loginFetchData = createAsyncThunk(USER_LOGIN, async () => {
-  const res = await axios.post(`${config.api_host_dev}/cms/signin`);
-});
+// const loginFetchData = createAsyncThunk(USER_LOGIN, async () => {
+//   const res = await axios.post(`${config.api_host_dev}/cms/signin`);
+// });
 
 const reducer = createSlice({
   name: "Auth",
   initialState: initialState,
   extraReducers: (builder) => {
     builder.addCase(USER_LOGIN, (state, action)=> {
-      // console.log(state, action)
       return {
         token: action.token,
         role: action.role,
-        // email: action.email,
       };
     });
   },
