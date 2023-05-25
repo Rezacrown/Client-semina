@@ -20,7 +20,7 @@ const initialState = {
 const categoriesReducer = createSlice({
   name: "categories",
   initialState,
-  extraReducers: async (builder) => {
+  extraReducers: (builder) => {
     builder.addCase(START_FETCHING_CATEGORIES, (state, action) => {
       return {
         ...state,

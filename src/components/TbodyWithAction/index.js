@@ -26,8 +26,8 @@ function TbodyWithAction({
             </div>
           </td>
         </tr>
-      ) : data.length ? (
-        data.map((data, index) => {
+        ) : data.length ? (
+            data.map((data, index) => {
           return (
             <tr key={index}>
               {Object.keys(data).map(
