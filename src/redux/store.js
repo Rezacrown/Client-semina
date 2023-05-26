@@ -3,6 +3,7 @@ import AuthReducer from './auth/reducer';
 import CategoriesReducer from './categories/reducer';
 import NotifReducer from './notif/reducer';
 import TalentsReducer from './talents/reducer';
+import PaymentsReducer from './payments/reducer';
 
 
 const store = configureStore({
@@ -10,7 +11,8 @@ const store = configureStore({
         auth: AuthReducer,
         categories: CategoriesReducer,
         notif: NotifReducer,
-        talents: TalentsReducer
+        talents: TalentsReducer,
+        payments: PaymentsReducer
     }
 })
 
