@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Container, Card } from "react-bootstrap";
 
-// import axios from "axios";
 import SAlert from "../../components/Alert";
-import { useNavigate, Navigate } from "react-router-dom";
-// import DashBoard from "./../dashboard/index";
-// import { config } from "../../config";
+import { useNavigate } from "react-router-dom";
 import SForm from "./form";
 import { postData } from "../../utils/fetch";
 import { useDispatch } from "react-redux";
@@ -42,6 +39,7 @@ const PageSignIn = () => {
 
   const handleSubmit = async (e) => {
     setIsLoading(true);
+
     const res = await postData(`/cms/signin`, form);
     if (res?.data?.data) {
       setIsLoading(false);
@@ -57,6 +55,12 @@ const PageSignIn = () => {
     }
   };
 
+  const handleKeyboard = (e) => {
+    if (e.key === "Enter") { 
+      handleSubmit()
+    }
+  }
+
   return (
     <Container md={12}>
       <Card style={{ width: "50%" }} className="mx-auto mt-5">
@@ -70,6 +74,7 @@ const PageSignIn = () => {
 
           <SForm
             form={form}
+            handleKeyboard={handleKeyboard}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             isLoading={isLoading}

@@ -4,6 +4,9 @@ import CategoriesReducer from './categories/reducer';
 import NotifReducer from './notif/reducer';
 import TalentsReducer from './talents/reducer';
 import PaymentsReducer from './payments/reducer';
+import EventsReducer from './events/reducer';
+import ListsReducer from './lists/reducer';
+import OrdersReducer from './orders/reducer';
 
 
 const store = configureStore({
@@ -12,7 +15,10 @@ const store = configureStore({
         categories: CategoriesReducer,
         notif: NotifReducer,
         talents: TalentsReducer,
-        payments: PaymentsReducer
+        payments: PaymentsReducer,
+        events: EventsReducer,
+        lists: ListsReducer,
+        orders: OrdersReducer
     }
 })
 

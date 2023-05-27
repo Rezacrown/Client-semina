@@ -5,7 +5,7 @@ import {Form} from 'react-bootstrap';
 import SButton from "./../../components/Button/index";
 import { TextInputWithLabel } from "../../components/TextInput";
 
-const SForm = ({form, isLoading, handleSubmit, handleChange}) => {
+const SForm = ({form, isLoading, handleSubmit, handleChange, handleKeyboard}) => {
     return (
       <Form>
         <TextInputWithLabel
@@ -24,6 +24,7 @@ const SForm = ({form, isLoading, handleSubmit, handleChange}) => {
           type="password"
           value={form.password}
           onChange={handleChange}
+          onKeyboard={handleKeyboard}
           // autocomplete={'on'}
         />
         <SButton

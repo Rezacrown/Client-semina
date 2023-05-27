@@ -26,14 +26,14 @@ const categoriesReducer = createSlice({
         ...state,
         status: statuslist.process,
       };
-    }),
+    })
       builder.addCase(SUCCESS_FETCHING_CATEGORIES, (state, action) => {
         return {
           ...state,
           status: statuslist.success,
           data: action.categories,
         };
-      }),
+      })
       builder.addCase(ERROR_FETCHING_CATEGORIES, (state, action) => {
         return {
           ...state,

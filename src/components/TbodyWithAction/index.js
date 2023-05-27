@@ -50,10 +50,11 @@ function TbodyWithAction({
                   )
               )}
               {!actionNotDisplay && (
-                <td>
+                <td className="d-flex flex-column gap-1">
                   {customAction && customAction(data._id, data.statusEvent)}
                   {editUrl && (
                     <Button
+                      className={'mx-2'}
                       variant="success"
                       size={"sm"}
                       action={() => navigate(`${editUrl}/${data._id}`)}

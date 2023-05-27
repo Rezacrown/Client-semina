@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-export function TextInput({ name, value, type, onChange, placeholder }) {
+export function TextInput({ name, value, type, onChange, placeholder, onKeyboard }) {
   return (
     <Form.Control
       type={type}
@@ -9,6 +9,7 @@ export function TextInput({ name, value, type, onChange, placeholder }) {
       value={value} // state
       placeholder={placeholder}
       onChange={onChange}
+      onKeyDown={onKeyboard}
       autoComplete="on"
     />
   );
@@ -22,6 +23,7 @@ export function TextInputWithLabel({
   type,
   onChange,
   placeholder,
+  onKeyboard,
 })
 {
   return (
@@ -33,6 +35,7 @@ export function TextInputWithLabel({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
+        onKeyboard={onKeyboard}
       />
     </Form.Group>
   );

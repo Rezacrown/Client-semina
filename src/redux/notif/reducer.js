@@ -32,7 +32,7 @@ const notifReducer = createSlice({
         typeNotif: action.typeNotif,
         message: action.message,
       };
-    }),
+    })
       builder.addCase(CLEAR_NOTIF, (state, action) => {
         return {
             state: initialState

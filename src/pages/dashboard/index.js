@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 // import { Navigate } from "react-router-dom";
 
-import { Container, Table } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 // import SButton from "../../components/Button";
 import SBreadCrumb from "./../../components/Breadcrumb";
 // import SNavbar from "../../components/Navbar";
