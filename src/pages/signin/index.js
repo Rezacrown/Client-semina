@@ -44,7 +44,14 @@ const PageSignIn = () => {
     if (res?.data?.data) {
       setIsLoading(false);
       navigate("/");
-      dispatch(userLogin(res?.data?.data?.token, res?.data?.data?.role));
+      dispatch(
+        userLogin(
+          res?.data?.data?.token,
+          res?.data?.data?.role,
+          res?.data?.data?.refreshToken,
+          res?.data?.data?.email
+        )
+      );
     } else {
       setIsLoading(false);
       setAlert({
@@ -56,10 +63,10 @@ const PageSignIn = () => {
   };
 
   const handleKeyboard = (e) => {
-    if (e.key === "Enter") { 
-      handleSubmit()
+    if (e.key === "Enter") {
+      handleSubmit();
     }
-  }
+  };
 
   return (
     <Container md={12}>

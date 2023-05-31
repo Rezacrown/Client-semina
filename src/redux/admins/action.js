@@ -1,4 +1,10 @@
+import { getData } from '../../utils/fetch';
+import { clearNotif } from '../notif/action'
 import { ERROR_FETCHING_ADMINS, START_FETCHING_ADMINS, SUCCESS_FETCHING_ADMINS } from './constants'
+import debounce from "debounce-promise";
+
+
+let debouncedFetchAdmins = debounce(getData, 1000);
 
 
 const startFetchingAdmins = () => {
@@ -20,10 +26,15 @@ const successFetchingAdmins = ({admins}) => {
  
 
 const fetchAdmins = () => {
-    return (dispatch, getState) => {
+    return async (dispatch, getState) => {
         dispatch(startFetchingAdmins())
         try {
-            
+            setTimeout(() => {
+               dispatch(clearNotif()) 
+            }, 5000)
+
+            const res = await debouncedFetchAdmins('/cms/admins')
+
         } catch (error) {
             dispatch(errorFetchingAdmins())
         }
