@@ -19,7 +19,9 @@ function OrderPage() {
   let [isShowed, setIsShowed] = React.useState(false);
 
   useEffect(() => {
+    console.log(orders);
     dispatch(fetchOrders());
+    // eslint-disable-next-line
   }, [dispatch, orders.page, orders.date]);
 
   useEffect(() => {

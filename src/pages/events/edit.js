@@ -13,7 +13,7 @@ import {
 } from "../../redux/lists/action";
 import moment from "moment";
 
-function EventsCreate() {
+function EventsEdit() {
   const navigate = useNavigate();
   const { eventId } = useParams();
   const dispatch = useDispatch();
@@ -30,13 +30,14 @@ function EventsCreate() {
     tickets: [
       {
         type: "",
-        status: "",
-        stock: "",
-        price: "",
+        statusTicketCategories: null,
+        stock: 0,
+        price: 0,
       },
     ],
     category: "",
     talent: "",
+    statusEvent: "",
   });
 
   const [alert, setAlert] = useState({
@@ -49,7 +50,7 @@ function EventsCreate() {
 
   const fetchOneCategories = async () => {
     const res = await getData(`/cms/event/${eventId}`);
-
+    console.log(res.data.data.tickets, "response");
     setForm({
       ...form,
       title: res?.data?.data?.title,
@@ -71,11 +72,14 @@ function EventsCreate() {
         value: res?.data?.data?.talent?._id,
       },
       tickets: res?.data?.data?.tickets,
+      statusEvent: res?.data?.data?.statusEvent,
     });
+    console.log("form.tickets >>>>", form.tickets);
   };
 
   useEffect(() => {
     fetchOneCategories();
+    console.log(form.tickets, "usestate");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -98,7 +102,7 @@ function EventsCreate() {
         e?.target?.files[0]?.type === "image/png" ||
         e?.target?.files[0]?.type === "image/jpeg"
       ) {
-        var size = parseFloat(e.target.files[0].size / 3145728).toFixed(2);
+        var size = parseFloat(e?.target?.files[0]?.size / 3145728).toFixed(2);
 
         if (size > 2) {
           setAlert({
@@ -157,12 +161,17 @@ function EventsCreate() {
       talent: form.talent.value,
       status: form.status,
       tickets: form.tickets,
+      statusEvent: form.statusEvent,
     };
 
     const res = await putData(`/cms/event/${eventId}`, payload);
     if (res?.data?.data) {
       dispatch(
-        setNotif(true, "success", `berhasil ubah events ${res?.data?.data?.title}`)
+        setNotif(
+          true,
+          "success",
+          `berhasil ubah events ${res?.data?.data?.title}`
+        )
       );
 
       navigate("/events");
@@ -196,7 +205,7 @@ function EventsCreate() {
   const handleMinusKeyPoint = (index) => {
     let _temp = [...form.keyPoint];
     let removeIndex = _temp
-      .map(function (_, i) {
+      .map((_, i) => {
         return i;
       })
       .indexOf(index);
@@ -216,10 +225,11 @@ function EventsCreate() {
 
     setForm({ ...form, tickets: _temp });
   };
+
   const handleMinusTicket = (index) => {
     let _temp = [...form.tickets];
     let removeIndex = _temp
-      .map(function (_, i) {
+      .map((_, i) => {
         return i;
       })
       .indexOf(index);
@@ -234,6 +244,26 @@ function EventsCreate() {
     _temp[i][e.target.name] = e.target.value;
 
     setForm({ ...form, tickets: _temp });
+  };
+
+  const handleStatusChange = (e) => {
+    setForm({
+      ...form,
+      statusEvent: e.value === "Published" ? "Published" : "Draft",
+    });
+  };
+
+  const handleStatusTicket = (e, i) => {
+    let _data = [...form.tickets];
+
+    console.log(_data[i]["statusTicketCategories"]);
+
+    _data[i]["statusTicketCategories"] = e.value;
+
+    setForm({
+      ...form,
+      tickets: _data,
+    });
   };
 
   return (
@@ -256,10 +286,12 @@ function EventsCreate() {
         handlePlusTicket={handlePlusTicket}
         handleMinusTicket={handleMinusTicket}
         handleChangeTicket={handleChangeTicket}
+        handleStatusChange={handleStatusChange}
         edit
+        handleStatusTicket={handleStatusTicket}
       />
     </Container>
   );
 }
 
-export default EventsCreate;
+export default EventsEdit;

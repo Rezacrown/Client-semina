@@ -142,7 +142,7 @@ export const fetchListEvents = () => {
 
     try {
       let res = await debouncedFetchListsEvents("/cms/event");
-
+      
       let _temp = [];
 
       res.data.data.forEach((res) => {

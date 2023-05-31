@@ -37,6 +37,7 @@ function EventsCreate() {
     category: "",
     talent: "",
     stock: "",
+    statusEvent: "",
   });
 
   const [alert, setAlert] = useState({
@@ -81,13 +82,22 @@ function EventsCreate() {
             [e.target.name]: "",
           });
         } else {
-          const res = await uploadImage(e.target.files[0]);
+          try {
+            const res = await uploadImage(e.target.files[0]);
+            console.log("res >>>>>", res);
 
-          setForm({
-            ...form,
-            file: res?.data?.data?._id,
-            [e.target.name]: res?.data?.data?.name,
-          });
+            setForm({
+              ...form,
+              file: res?.data?.data?._id,
+              [e.target.name]: res?.data?.data?.name,
+            });
+          } catch (error) {
+            setAlert({
+              status: true,
+              type: "danger",
+              message: "error cannot upload image",
+            });
+          }
         }
       } else {
         setAlert({
@@ -127,6 +137,7 @@ function EventsCreate() {
       talent: form.talent.value,
       status: form.status,
       tickets: form.tickets,
+      statusEvent: form.statusEvent || "Draft",
     };
 
     const res = await postData("/cms/event", payload);
@@ -210,6 +221,26 @@ function EventsCreate() {
     setForm({ ...form, tickets: _temp });
   };
 
+  const handleStatusChange = (e) => {
+    setForm({
+      ...form,
+      statusEvent: e.value === "Published" ? "Published" : "Draft",
+    });
+  };
+
+  const handleStatusTicket = (e, i) => {
+    let _data = [...form.tickets];
+
+    console.log(_data[i]["statusTicketCategories"]);
+
+    _data[i]["statusTicketCategories"] = e.value;
+
+    setForm({
+      ...form,
+      tickets: _data,
+    });
+  };
+
   return (
     <Container>
       <BreadCrumb
@@ -230,6 +261,8 @@ function EventsCreate() {
         handlePlusTicket={handlePlusTicket}
         handleMinusTicket={handleMinusTicket}
         handleChangeTicket={handleChangeTicket}
+        handleStatusChange={handleStatusChange}
+        handleStatusTicket={handleStatusTicket}
       />
     </Container>
   );

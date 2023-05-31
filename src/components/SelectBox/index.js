@@ -10,6 +10,7 @@ function SelectBox({
   placeholder,
   handleChange,
   label,
+  // optionSelected
 }) {
   return (
     <Form.Group className="mb-2">

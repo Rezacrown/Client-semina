@@ -15,7 +15,7 @@ export async function getData(url, params) {
       },
     });
   } catch (err) {
-    return console.log(err);
+    return handleError(err);
   }
 }
 
@@ -48,7 +48,7 @@ export async function putData(url, payload) {
       },
     });
   } catch (err) {
-    return console.log(err);
+    return handleError(err);
   }
 }
 
@@ -64,6 +64,6 @@ export async function deleteData(url) {
       },
     });
   } catch (err) {
-    return console.log(err);
+    return handleError(err);
   }
 }

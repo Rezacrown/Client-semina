@@ -31,7 +31,7 @@ function EventPage() {
   const lists = useSelector((state) => state.lists);
 
   useEffect(() => {
-    console.log(events);
+    // console.log(lists);
     dispatch(fetchEvents());
     // eslint-disable-next-line
   }, [dispatch, events.keyword, events.category, events.talent]);
@@ -53,7 +53,7 @@ function EventPage() {
       cancelButtonText: "Batal",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await deleteData(`/cms/events/${id}`);
+        const res = await deleteData(`/cms/event/${id}`);
 
         dispatch(
           setNotif(
@@ -108,6 +108,7 @@ function EventPage() {
             name="keyword"
             query={events.keyword}
             handleChange={(e) => dispatch(setKeyword(e.target.value))}
+            
           />
         </Col>
         <Col>
@@ -118,6 +119,7 @@ function EventPage() {
             options={lists.categories}
             isClearable={true}
             handleChange={(e) => dispatch(setCategory(e))}
+
           />
         </Col>
         <Col>

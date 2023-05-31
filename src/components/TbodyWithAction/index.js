@@ -50,7 +50,7 @@ function TbodyWithAction({
                   )
               )}
               {!actionNotDisplay && (
-                <td className="d-flex flex-column gap-1">
+                <td className="">
                   {customAction && customAction(data._id, data.statusEvent)}
                   {editUrl && (
                     <Button

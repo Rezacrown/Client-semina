@@ -9,7 +9,7 @@ import {
   Row,
 } from "react-bootstrap";
 import Button from "../../components/Button";
-import {TextInputWithLabel} from "../../components/TextInput";
+import { TextInputWithLabel } from "../../components/TextInput";
 import SelectBox from "../../components/SelectBox";
 import { config } from "../../config";
 
@@ -26,6 +26,8 @@ export default function EventsForm({
   handlePlusTicket,
   handleMinusTicket,
   handleChangeTicket,
+  handleStatusChange,
+  handleStatusTicket,
 }) {
   return (
     <Form className="mb-2">
@@ -100,8 +102,8 @@ export default function EventsForm({
       <Form.Label>Key Point</Form.Label>
       <Row>
         {form.keyPoint.map((key, index) => (
-          <Col sm={6}>
-            <InputGroup className="mb-3" key={index}>
+          <Col sm={6} key={index}>
+            <InputGroup className="mb-3">
               <FormControl
                 placeholder="Masukan keypoint"
                 value={key}
@@ -128,12 +130,12 @@ export default function EventsForm({
       <Row>
         <Col>
           <SelectBox
-            label={"Speaker"}
-            placeholder={"Masukan pembica"}
+            label={"Talent"}
+            placeholder={"Masukan pembicara"}
             name="talent"
             value={form.talent}
             options={lists.talents}
-            isClearable={true}
+            // isClearable={true}
             handleChange={(e) => handleChange(e)}
           />
         </Col>
@@ -144,7 +146,7 @@ export default function EventsForm({
             name="avatar"
             // value={form.avatar}
             type="file"
-            onChange={handleChange}
+            onChange={(e) => handleChange(e)}
           />
           {form.avatar !== "" && (
             <div>
@@ -198,15 +200,29 @@ export default function EventsForm({
             />
           </Col>
           <Col sm={index !== 0 ? 5 : 6}>
-            <TextInputWithLabel
-              placeholder={"Masukan status"}
-              label={"Status"}
-              name="status"
-              value={tic.status}
-              type="text"
-              onChange={(e) => handleChangeTicket(e, index)}
+            {console.log(tic.statusTicketCategories)}
+            <SelectBox
+              name="statusTicketCategories"
+              label="Status Ticket"
+              value={{
+                value: tic.statusTicketCategories,
+                label: JSON.stringify(tic.statusTicketCategories),
+              }}
+              options={[
+                {
+                  value: true,
+                  label: "true",
+                },
+                {
+                  value: false,
+                  label: "false",
+                },
+              ]}
+              handleChange={(e) => handleStatusTicket(e, index)}
             />
           </Col>
+
+          <Col sm={index !== 0 ? 5 : 6}></Col>
           {index !== 0 && (
             <Col
               sm={1}
@@ -222,6 +238,23 @@ export default function EventsForm({
           Tambah Ticket
         </Button>
       </div>
+
+      <Row className="my-3" style={{ width: "50%" }}>
+        <SelectBox
+          name={"statusEvent"}
+          label="Status Event"
+          placeholder={"Masukan status"}
+          value={{
+            value: form.statusEvent,
+            label: form.statusEvent,
+          }}
+          options={[
+            { value: "Published", label: "Published" },
+            { value: "Draft", label: "Draft" },
+          ]}
+          handleChange={(e) => handleStatusChange(e)}
+        />
+      </Row>
 
       <Button variant="primary" action={handleSubmit} loading={isLoading}>
         {edit ? "Ubah" : "Simpan"}

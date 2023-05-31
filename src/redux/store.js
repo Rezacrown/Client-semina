@@ -7,6 +7,7 @@ import PaymentsReducer from './payments/reducer';
 import EventsReducer from './events/reducer';
 import ListsReducer from './lists/reducer';
 import OrdersReducer from './orders/reducer';
+import OrganizersReducer from './organizers/reducer';
 
 
 const store = configureStore({
@@ -18,7 +19,8 @@ const store = configureStore({
         payments: PaymentsReducer,
         events: EventsReducer,
         lists: ListsReducer,
-        orders: OrdersReducer
+        orders: OrdersReducer,
+        organizers: OrganizersReducer
     }
 })
 
