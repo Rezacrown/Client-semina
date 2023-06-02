@@ -43,7 +43,7 @@ export function AppRoutes() {
         <Route path="events/*" element={<EventsRoute />} />
         <Route path="orders/*" element={<OrdersRoute />} />
         <Route path="organizers/*" element={<OrganizersRoute />} />
-        {/* <Route path="admins/*" element={<AdminsRoute />} /> */}
+        <Route path="admins/*" element={<AdminsRoute />} />
         
         <Route path="" element={<Navigate to="/dashboard" replace={true} />} />
       </Route>

@@ -7,6 +7,7 @@ import {
 import { getData } from "../../utils/fetch";
 import debounce from "debounce-promise";
 import { clearNotif } from "../notif/action";
+import moment from "moment";
 
 let debouncedFetchOrganizers = debounce(getData, 1000);
 
@@ -37,6 +38,10 @@ export const fetchOrganizer = () => {
       }, 5000);
 
       const res = await debouncedFetchOrganizers("/cms/users");
+
+      res.data.data.forEach((key, index) => {
+        key.createdAt = moment(key.createdAt).format("MMMM Do YYYY, h:mm:ss a");
+      });
 
       dispatch(
         successFetchinOrganizers({

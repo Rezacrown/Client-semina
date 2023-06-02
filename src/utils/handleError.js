@@ -2,8 +2,12 @@ import axios from "axios";
 import { config } from "../config";
 
 const handleError = (error) => {
-  const originalRequest = error.config
-  console.log(originalRequest._retry)
+  const originalRequest = error.config;
+
+  // console.log(error)
+  // console.log('originalRequest._retry');
+  // console.log(originalRequest._retry);
+
   if (error.response.data.msg === "jwt expired") {
     originalRequest._retry = true;
     const session = localStorage.getItem("auth")
@@ -13,8 +17,6 @@ const handleError = (error) => {
     return axios
       .get(`${config.api_host_dev}/cms/refresh-token/${session.refreshToken}`)
       .then((res) => {
-        console.log("res");
-        console.log(res);
         localStorage.setItem(
           "auth",
           JSON.stringify({
@@ -22,6 +24,7 @@ const handleError = (error) => {
             token: res.data.data.token,
           })
         );
+
         originalRequest.headers.Authorization = `Bearer ${res.data.data.token}`;
 
         // console.log("originalRequest");
@@ -34,7 +37,6 @@ const handleError = (error) => {
         localStorage.removeItem("auth");
       });
   }
-
 
   return error;
 };

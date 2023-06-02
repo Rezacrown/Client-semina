@@ -9,7 +9,7 @@ import { fetchOrganizer } from "../../redux/organizers/action";
 import { useDispatch, useSelector } from "react-redux";
 // import Swal from "sweetalert2";
 // import { deleteData } from "../../utils/fetch";
-import { setNotif } from "../../redux/notif/action";
+// import { setNotif } from "../../redux/notif/action";
 import SAlert from "../../components/Alert";
 
 const OrganizersPage = () => {
@@ -17,7 +17,7 @@ const OrganizersPage = () => {
   const dispatch = useDispatch();
   const Organizers = useSelector((state) => state.organizers);
   const notif = useSelector((state) => state.notif);
-  const [acces, setAccess] = useState({
+  const [access, setAccess] = useState({
     tambah: false,
     hapus: false,
     edit: false,
@@ -44,13 +44,12 @@ const OrganizersPage = () => {
 
   useEffect(() => {
     dispatch(fetchOrganizer());
-    console.log(Organizers.data);
   }, [dispatch]);
 
   return (
     <Container className="mt-3">
       <SBreadCrumb textSecound={"Organizers"} />
-      {accessOrganizers.tambah && (
+      {access.tambah && (
         <div className="mb-3">
           <SButton action={() => Navigate("/organizers/create")}>
             Tambah
@@ -64,9 +63,9 @@ const OrganizersPage = () => {
 
       <Table
         status={Organizers.status}
-        thead={["Nama", "Role", "Email", "Created By"]}
+        thead={["Nama", "Role", "Email", "Created At"]}
         data={Organizers.data}
-        tbody={["name", "role", "email", "organizer"]}
+        tbody={["name", "role", "email", "createdAt"]}
         withoutPagination
       />
     </Container>

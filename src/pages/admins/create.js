@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { setNotif } from "../../redux/notif/action";
 import Alert from "../../components/Alert";
 import { useNavigate } from "react-router-dom";
-// import { accessOrganizers } from "../../const/access";
 
 const CreateOrganizer = () => {
   const dispatch = useDispatch();
@@ -29,7 +28,6 @@ const CreateOrganizer = () => {
   });
 
   const handleChange = (e) => {
-    console.log(e);
     setForm({
       ...form,
       [e.target.name]: e.target.value,
@@ -45,7 +43,7 @@ const CreateOrganizer = () => {
 
   const handleSubmit = async (e) => {
     setIsLoading(true);
-    const res = await postData("/cms/organizer", form);
+    const res = await postData("/cms/admin", form);
 
     if (res?.data?.data) {
       dispatch(
@@ -55,7 +53,7 @@ const CreateOrganizer = () => {
           `berhasil menambahkan ${res?.data?.data?.name} sebagai organizer`
         )
       );
-      navigate("/organizers");
+      navigate("/admins");
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -71,8 +69,8 @@ const CreateOrganizer = () => {
   return (
     <Container>
       <SBreadCrumb
-        textSecound={"Organizers"}
-        urlSecound={"/organizers"}
+        textSecound={"Admins"}
+        urlSecound={"/admins"}
         textThird={"Tambah"}
       />
       {alert.status && <Alert type={alert.type} message={alert.message} />}

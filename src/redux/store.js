@@ -8,6 +8,7 @@ import EventsReducer from './events/reducer';
 import ListsReducer from './lists/reducer';
 import OrdersReducer from './orders/reducer';
 import OrganizersReducer from './organizers/reducer';
+import AdminsReducer from './admins/reducer';
 
 
 const store = configureStore({
@@ -20,7 +21,8 @@ const store = configureStore({
         events: EventsReducer,
         lists: ListsReducer,
         orders: OrdersReducer,
-        organizers: OrganizersReducer
+        organizers: OrganizersReducer,
+        admins: AdminsReducer
     }
 })
 
